@@ -7,6 +7,32 @@ const mainpage = document.querySelector('#main-page')
 const loginfrontpage = document.querySelector('#login-button')
 const userinput = document.querySelector('#user-input')
 const passwordinput = document.querySelector('#password-input') 
+const offerinfolink  = document.querySelector('#offerinfo')
+const offerinfocontainer = document.querySelector('#offer-info-container')
+const cross = document.querySelector('#cross')
+const purchasekey = document.querySelectorAll('#purchase-key')
+
+for(let i = 0; i < purchasekey.length; i++){
+    const purchasekey1 = purchasekey[i]
+    purchasekey1.addEventListener('click', function(){
+        const price = parseInt(purchasekey1.parentElement.previousElementSibling.innerText.substr(1,))
+        const name = purchasekey1.parentElement.previousElementSibling.previousElementSibling.innerText
+
+    })
+}
+function itemsaddingmachine(){
+    
+}
+
+
+cross.addEventListener('click', function(){
+    offerinfocontainer.classList.add('hidden')
+})
+
+
+offerinfolink.addEventListener('click', function(){
+    offerinfocontainer.classList.remove('hidden')
+})
 
 
 function changelayout(frompage, topage){
@@ -26,6 +52,12 @@ loginmainpage.addEventListener('click', function(){
 
 loginfrontpage.addEventListener('click', function(){
     if(userinput.value === "sami" && passwordinput.value === "sami1212"){
-        changelayout(mainpage, loginpage)
+        changelayout(loginpage, mainpage)
     }
+    else{
+        alert("wrong password!!")
+    }
+})
+offerinfolink.addEventListener('click', function(){
+
 })
