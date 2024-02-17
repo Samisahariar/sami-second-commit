@@ -11,18 +11,68 @@ const offerinfolink  = document.querySelector('#offerinfo')
 const offerinfocontainer = document.querySelector('#offer-info-container')
 const cross = document.querySelector('#cross')
 const purchasekey = document.querySelectorAll('#purchase-key')
+const lists = document.getElementById('list-adding')
+
+const totalbill = document.querySelector('#total-value')
+const discountedprice = document.querySelector('#discounted-price')
+
+let totalprice = 0
+function totalbillcounter (price){
+    price = parseInt(price)
+    totalprice += price
+    showingtheprice(totalprice)
+}
+
+/* coupan area */
+const coupaninput = document.querySelector('#coupan-input')
+const coupanbutton = document.querySelector('#applycoupan')
+
+function showingthediscount (value){
+    discountedprice.innerText = value
+}
+
+coupanbutton.addEventListener('click', function(){
+    let value = coupaninput.value
+    sdiscountedprice(value)
+})
+
+function sdiscountedprice(value){
+    let discountprice = 0
+    if(value === "samcoupan"){
+        discountprice = totalprice * 0.25
+        totalprice = totalprice - discountprice
+        showingtheprice(totalprice)
+        showingthediscount(discountprice)
+    }
+}
+
+/* 
+
+
+*/
+function showingtheprice (totalprice){
+    totalbill.innerText = totalprice
+}
+
 
 for(let i = 0; i < purchasekey.length; i++){
     const purchasekey1 = purchasekey[i]
     purchasekey1.addEventListener('click', function(){
-        const price = parseInt(purchasekey1.parentElement.previousElementSibling.innerText.substr(1,))
+        let price = parseInt(purchasekey1.parentElement.previousElementSibling.innerText.substr(1,))
         const name = purchasekey1.parentElement.previousElementSibling.previousElementSibling.innerText
-
+        itemsaddingmachine(name)
+        totalbillcounter(price)
+    /*     itemsaddingmachine(name) */
     })
 }
-function itemsaddingmachine(){
-    
+function itemsaddingmachine(name){
+    let itemsnumber = document.querySelectorAll('.choiced-items')
+    const list = document.createElement('li')
+    list.classList.add('choiced-items')
+    list.innerText = `${itemsnumber.length + 1} .${name}`
+    lists.appendChild(list)
 }
+
 
 
 cross.addEventListener('click', function(){
