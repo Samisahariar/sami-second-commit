@@ -16,11 +16,42 @@ const lists = document.getElementById('list-adding')
 const totalbill = document.querySelector('#total-value')
 const discountedprice = document.querySelector('#discounted-price')
 
+
+/* cart-pop-out section*/
+const cartpopout = document.querySelector('#cart-popout')
+let relative = 1
+const cartlink = document.querySelector('#cart-link')
+cartlink.addEventListener('click', function(){
+    relative += 1
+    if(relative % 2 !== 0){
+        cartpopout.classList.add('hidden')
+    }
+    else{
+        cartpopout.classList.remove('hidden')
+    }
+})
+
+
+
+
 let totalprice = 0
 function totalbillcounter (price){
     price = parseInt(price)
     totalprice += price
     showingtheprice(totalprice)
+}
+
+function dedactiongprice(price){
+    if(totalprice < 0){
+        totalprice = 0
+        showingtheprice(price)
+    }
+    else{
+        price = parseInt(price)
+        totalprice -= price
+        showingtheprice(totalprice)
+    }
+
 }
 
 /* coupan area */
@@ -43,20 +74,37 @@ function sdiscountedprice(value){
         totalprice = totalprice - discountprice
         showingtheprice(totalprice)
         showingthediscount(discountprice)
+    } 
+}
+
+
+/* return from cart area*/
+const returnbuttons = document.querySelectorAll('#return-key')
+for(let returnbutton of returnbuttons){
+    returnbutton.addEventListener('click', function(){
+        let price = parseInt(returnbutton.parentElement.previousElementSibling.innerText.substr(1,))
+        const name = returnbutton.parentElement.previousElementSibling.previousElementSibling.innerText
+        itemsremovingmachine(name)
+        dedactiongprice(price)
+    })
+}
+function itemsremovingmachine(name){
+    const choicedlist = document.querySelectorAll('.choiced-items')
+    const choicelistelement = document.getElementById('list-adding')
+    for(let choice of choicedlist){
+        if(choice.innerText.substr(3,) === name){
+            choicelistelement.removeChild(choice)
+        }
     }
 }
 
-/* 
-
-
-*/
 function showingtheprice (totalprice){
     totalbill.innerText = totalprice
 }
 
 
-for(let i = 0; i < purchasekey.length; i++){
-    const purchasekey1 = purchasekey[i]
+for(let purchasekey1 of purchasekey){
+    /* const purchasekey1 = purchasekey[i] */
     purchasekey1.addEventListener('click', function(){
         let price = parseInt(purchasekey1.parentElement.previousElementSibling.innerText.substr(1,))
         const name = purchasekey1.parentElement.previousElementSibling.previousElementSibling.innerText
@@ -73,6 +121,9 @@ function itemsaddingmachine(name){
     lists.appendChild(list)
 }
 
+function addingtext(vaalue){
+
+}
 
 
 cross.addEventListener('click', function(){
